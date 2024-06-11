@@ -100,4 +100,6 @@ public class Product {
 }
 
 L'impiego di Field è buona pratica per la manutenibilità del codice e la consistenza dei dati
+
+
 Fonte:https://docs.spring.io/spring-data/mongodb/reference/#mapping-usage-annotations-document
