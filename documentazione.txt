@@ -80,3 +80,18 @@ application.properties: contiene le configurazioni dell'applicazione come connes
 SecurityConfig.java: configura le impostazioni di sicurezza con Spring Security.
 Conclusione
 Questo documento descrive le principali funzionalità, tecnologie e configurazioni del progetto Marketplace Online. Per ulteriori dettagli, consultare la documentazione dei singoli componenti e le guide di Spring.
+
+Utilizzo di MongoDB:
+
+Necessario Spring Web
+
+Application properties riguardanti MongoDB
+spring.data.mongodb.uri=mongodb://localhost:27017/tuo_database
+spring.data.mongodb.database=tuo_database
+
+Import necessari per creare la classe Document
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+Utilizzare l'annotazione: @Document(collection = "tuacollection")
+public class TuoModello
