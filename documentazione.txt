@@ -1,0 +1,103 @@
+Documentazione Progetto: Marketplace Online
+Descrizione
+Marketplace Online è un'applicazione per un piccolo marketplace online dove gli utenti possono comprare e vendere prodotti. Gli utenti possono creare inserzioni per i loro prodotti e acquistare quelli di altri. L'applicazione offre funzionalità di registrazione e autenticazione degli utenti, gestione delle inserzioni, carrello della spesa, recensioni dei prodotti e filtri di ricerca avanzati. Il sistema utilizza Spring Boot, Spring Security, Spring Data JPA, Thymeleaf, MongoDB e l'API Stripe per i pagamenti.
+
+Funzionalità
+1. Registrazione e Autenticazione degli Utenti
+Descrizione: Gli utenti possono registrarsi creando un nuovo account e autenticarsi utilizzando le proprie credenziali.
+Tecnologie: Spring Security, Spring Data JPA, MongoDB.
+Endpoint:
+POST /register: registra un nuovo utente.
+POST /login: autentica un utente esistente.
+2. Creazione, Modifica e Cancellazione di Inserzioni di Prodotti
+Descrizione: Gli utenti possono creare nuove inserzioni per i loro prodotti, modificarle o cancellarle.
+Tecnologie: Spring Boot, Spring Data JPA, MongoDB, Thymeleaf.
+Endpoint:
+POST /listings: crea una nuova inserzione.
+PUT /listings/{id}: modifica un'inserzione esistente.
+DELETE /listings/{id}: cancella un'inserzione esistente.
+3. Carrello della Spesa e Gestione degli Ordini
+Descrizione: Gli utenti possono aggiungere prodotti al carrello, visualizzare il carrello e procedere all'acquisto.
+Tecnologie: Spring Boot, Spring Data JPA, MongoDB, Stripe API.
+Endpoint:
+POST /cart/add/{productId}: aggiunge un prodotto al carrello.
+GET /cart: visualizza il carrello dell'utente.
+POST /checkout: processa il pagamento e crea un ordine.
+4. Recensioni e Valutazioni dei Prodotti
+Descrizione: Gli utenti possono lasciare recensioni e valutazioni sui prodotti acquistati.
+Tecnologie: Spring Boot, Spring Data JPA, MongoDB.
+Endpoint:
+POST /reviews/{productId}: crea una recensione per un prodotto.
+GET /reviews/{productId}: visualizza tutte le recensioni di un prodotto.
+5. Filtri di Ricerca per Categorie, Prezzo e Valutazioni
+Descrizione: Gli utenti possono cercare prodotti utilizzando filtri per categorie, prezzo e valutazioni.
+Tecnologie: Spring Boot, Spring Data JPA, MongoDB, Thymeleaf.
+Endpoint:
+GET /listings?category={category}&priceMin={priceMin}&priceMax={priceMax}&rating={rating}: ricerca prodotti con filtri.
+Tecnologie Utilizzate
+1. Spring Boot
+Framework principale per lo sviluppo dell'applicazione.
+2. Spring Security
+Gestione della sicurezza, autenticazione e autorizzazione degli utenti.
+3. Spring Data JPA
+Accesso e gestione dei dati relazionali.
+4. Thymeleaf
+Motore di template per la generazione dinamica delle pagine HTML.
+5. MongoDB
+Database NoSQL per la gestione dei dati degli utenti, prodotti, recensioni e ordini.
+6. Stripe API
+Gestione dei pagamenti online.
+Architettura del Sistema
+L'applicazione segue l'architettura MVC (Model-View-Controller) con una separazione chiara tra la logica di business (servizi), l'accesso ai dati (repository) e la presentazione (controller e viste).
+
+-------------------
+TASK:
+    UML Elisabetta
+    Planning team 
+    Domande su trello
+    Ricerca su github di un progetto simile
+    Studio delle dipendenze
+--------------------
+Utilizzo di MongoDB:
+
+Necessario Spring Web
+
+Application properties riguardanti MongoDB
+spring.data.mongodb.uri=mongodb://localhost:27017/tuo_database
+spring.data.mongodb.database=tuo_database
+
+Import necessari per creare la classe Document
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+Utilizzare l'annotazione @Document:
+L'annotazione @Document in Spring Data MongoDB è utilizzata per indicare che una classe è un documento MongoDB.
+Questa annotazione è specifica di Spring Data MongoDB e viene applicata ai modelli di dati per mappare la classe
+a una collezione di documenti in MongoDB.
+Utilizzare l'annotazione @Field:
+Consente di mappare un campo della classe a un campo con un nome diverso nel documento MongoDB.
+
+Es:
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
+
+@Document(collection = "products")
+public class Product {
+    @Id
+    private String id;
+
+    @Field("product_name")
+    private String name;
+
+    @Field("product_price")
+    private double price;
+
+    @Field("product_description")
+    private String description;
+
+    // Costruttori, Getter e Setter
+}
+
+L'impiego di Field è buona pratica per la manutenibilità del codice e la consistenza dei dati
+Fonte:https://docs.spring.io/spring-data/mongodb/reference/#mapping-usage-annotations-document
