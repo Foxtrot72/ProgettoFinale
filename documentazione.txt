@@ -81,17 +81,36 @@ SecurityConfig.java: configura le impostazioni di sicurezza con Spring Security.
 Conclusione
 Questo documento descrive le principali funzionalità, tecnologie e configurazioni del progetto Marketplace Online. Per ulteriori dettagli, consultare la documentazione dei singoli componenti e le guide di Spring.
 
-Utilizzo di MongoDB:
+Utilizzare l'annotazione @Document:
+L'annotazione @Document in Spring Data MongoDB è utilizzata per indicare che una classe è un documento MongoDB.
+Questa annotazione è specifica di Spring Data MongoDB e viene applicata ai modelli di dati per mappare la classe
+a una collezione di documenti in MongoDB.
+Utilizzare l'annotazione @Field:
+Consente di mappare un campo della classe a un campo con un nome diverso nel documento MongoDB.
 
-Necessario Spring Web
-
-Application properties riguardanti MongoDB
-spring.data.mongodb.uri=mongodb://localhost:27017/tuo_database
-spring.data.mongodb.database=tuo_database
-
-Import necessari per creare la classe Document
+Es:
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-Utilizzare l'annotazione: @Document(collection = "tuacollection")
-public class TuoModello
+@Document(collection = "products")
+public class Product {
+    @Id
+    private String id;
+
+    @Field("product_name")
+    private String name;
+
+    @Field("product_price")
+    private double price;
+
+    @Field("product_description")
+    private String description;
+
+    // Costruttori, Getter e Setter
+}
+
+L'impiego di Field è buona pratica per la manutenibilità del codice e la consistenza dei dati
+
+
+Fonte:https://docs.spring.io/spring-data/mongodb/reference/#mapping-usage-annotations-document
