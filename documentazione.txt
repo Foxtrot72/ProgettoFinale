@@ -50,36 +50,19 @@ Gestione dei pagamenti online.
 Architettura del Sistema
 L'applicazione segue l'architettura MVC (Model-View-Controller) con una separazione chiara tra la logica di business (servizi), l'accesso ai dati (repository) e la presentazione (controller e viste).
 
-Configurazione e Avvio del Progetto
-Prerequisiti
-Java 11 o superiore
-Maven
-MongoDB
-Account Stripe per i pagamenti
-Passi per l'Avvio
-Clonare il repository:
 
-bash
-Copiază codul
-git clone https://github.com/tuo-utente/marketplace-online.git
-cd marketplace-online
-Configurare MongoDB:
+Utilizzo di MongoDB:
 
-Assicurarsi che MongoDB sia in esecuzione e configurare application.properties con le corrette informazioni di connessione.
-Configurare Stripe:
+Necessario Spring Web
 
-Ottenere le chiavi API da Stripe e aggiungerle a application.properties.
-Costruire ed eseguire l'applicazione:
+Application properties riguardanti MongoDB
+spring.data.mongodb.uri=mongodb://localhost:27017/tuo_database
+spring.data.mongodb.database=tuo_database
 
-bash
-Copiază codul
-mvn clean install
-mvn spring-boot:run
-File di Configurazione Principali
-application.properties: contiene le configurazioni dell'applicazione come connessioni a database e chiavi API.
-SecurityConfig.java: configura le impostazioni di sicurezza con Spring Security.
-Conclusione
-Questo documento descrive le principali funzionalità, tecnologie e configurazioni del progetto Marketplace Online. Per ulteriori dettagli, consultare la documentazione dei singoli componenti e le guide di Spring.
+Import necessari per creare la classe Document
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 
 Utilizzare l'annotazione @Document:
 L'annotazione @Document in Spring Data MongoDB è utilizzata per indicare che una classe è un documento MongoDB.
@@ -113,6 +96,7 @@ public class Product {
 L'impiego di Field è buona pratica per la manutenibilità del codice e la consistenza dei dati
 
 
+
 Fonte:https://docs.spring.io/spring-data/mongodb/reference/#mapping-usage-annotations-documentDocumentazione Progetto: Marketplace Online
 
 Stripe API:
@@ -130,3 +114,6 @@ Stripe API:
 
 - Configurare il frontend (opzionale)
     Se necessario, configurare il frontend per interagire con il backend e la Stripe API.
+
+Fonte:https://docs.spring.io/spring-data/mongodb/reference/#mapping-usage-annotations-document
+
