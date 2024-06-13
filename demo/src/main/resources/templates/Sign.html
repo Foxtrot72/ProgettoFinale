@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+  }
+
+  h1, p {
+    color: #333;
+    text-align: center;
+  }
+
+  form {
+    background: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  input,
+  textarea {
+    width: 470px;
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    background-color: #fd954a;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background-color: #fd954a;
+  }
+
+  a {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    color: #fd954a;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    
+  }
+</style>
+
+<head>
+  <title>Registrazione utente</title>
+</head>
+
+<body>
+  <h1>Registrazione account</h1>
+  <p>Inserisci i seguenti dati</p>
+  <form action="@{/sign}" th:object="${utente}" method="post">
+    <div class="form-group">
+        <label for="username">Nome utente</label>
+        <input type="text" th:field="*{username}" required>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label><br>
+        <input type="password" th:field="*{password}" required>
+    </div>
+    <div class="form-group">
+        <label for="email">Email</label><br>
+        <input type="email" th:field="*{email}" required>
+    </div>
+    <button type="submit">Registrati</button>
+  </form>
+  <a th:href="@{/}">Torna alla pagina iniziale</a>
+</body>
+
+</html>
