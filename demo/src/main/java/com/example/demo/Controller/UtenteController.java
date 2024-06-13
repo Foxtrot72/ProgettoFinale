@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.Model.Prodotto;
 import com.example.demo.Model.Utente;
-import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
 
 
@@ -22,34 +21,31 @@ import com.example.demo.Repository.UtenteRepository;
 
 @Controller
 public class UtenteController {
-    
-    @Autowired
-    private ProdottoRepository prodottoRepository;
 
     @Autowired
     private UtenteRepository utenteRepository;
+
+    public Utente findByUsername(String username) {
+        return utenteRepository.findByUsername(username);
+    }
     
-public Utente findByUsername(String username){
-    return utenteRepository.findByUsername(username);
-}
+
     @GetMapping("/")
     public String paginaIniziale() {
         return "Inizio";
     }
 
-    // @GetMapping("/utenti")
-    // public @ResponseBody void getAllUtenti() {
-    //   utenteRepository.findAll();
-    //   return;
-    // }
+    @GetMapping("/home")
+    public String home() {
+        return "home";
+    }
 
     @GetMapping("/utenti")
     public String getAllutenti(Model model) {
         List<Utente> utenti = utenteRepository.findAll();
         model.addAttribute("utenti", utenti);
-        return "Utenti"; 
+        return "Utenti";
     }
-    
 
     @GetMapping("/sign")
     public String mostraFormSign(Utente utente, Model model) {
@@ -58,7 +54,7 @@ public Utente findByUsername(String username){
     }
 
     @PostMapping("/sign")
-    public  String aggiungiUtente(Utente utente) {
+    public String aggiungiUtente(Utente utente) {
         utenteRepository.save(utente);
         // model.addAttribute("utente", utente);
         return "redirect:/home"; 
