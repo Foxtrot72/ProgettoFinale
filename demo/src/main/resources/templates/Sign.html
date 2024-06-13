@@ -67,7 +67,7 @@
 <body>
   <h1>Registrazione account</h1>
   <p>Inserisci i seguenti dati</p>
-  <form action="@{/sign}" th:object="${utente}" method="post">
+  <form action="/sign" th:object="${utente}" method="post">
     <div class="form-group">
         <label for="username">Nome utente</label>
         <input type="text" th:field="*{username}" required>
@@ -80,7 +80,7 @@
         <label for="email">Email</label><br>
         <input type="email" th:field="*{email}" required>
     </div>
-    <button type="submit">Registrati</button>
+    <button type="submit" href="/utenti">Registrati</button>
   </form>
   <a th:href="@{/}">Torna alla pagina iniziale</a>
 </body>

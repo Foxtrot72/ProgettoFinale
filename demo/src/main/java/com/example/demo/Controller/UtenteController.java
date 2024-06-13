@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.example.demo.Model.Utente;
 import com.example.demo.Repository.ProdottoRepository;
@@ -49,10 +52,23 @@ public class UtenteController {
     }
 
     @PostMapping("/sign")
-    public String aggiungiUtente(Utente utente) {
+    public  String aggiungiUtente(Utente utente) {
         utenteRepository.save(utente);
-        return "redirect:/"; 
+        // model.addAttribute("utente", utente);
+        return "redirect:/utenti"; 
     } 
+
+
+
+
+//     @PostMapping("/sign")
+// public ModelAndView aggiungiUtente(Utente utente) {
+//     utenteRepository.save(utente);
+//     ModelAndView mav = new ModelAndView("redirect:/utenti");
+//     mav.addObject("messaggio", "Utente aggiunto con successo");
+//     return mav;
+// }
+
 
     // @GetMapping("/login")
     // public String mostraFormLogin(@RequestParam("id") Long id, Model model) {
