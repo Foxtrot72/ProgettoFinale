@@ -14,6 +14,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.demo.Model.Utente;
 import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
@@ -55,9 +57,26 @@ public class UtenteController {
     public  String aggiungiUtente(Utente utente) {
         utenteRepository.save(utente);
         // model.addAttribute("utente", utente);
-        return "redirect:/utenti"; 
+        return "redirect:/home"; 
     } 
 
+    @GetMapping("/home")
+    public String mostraFormSign() {
+       
+        return "Home";
+    }
+    @GetMapping("/venditore")
+    public String mostraVenditore() {
+       
+        return "venditore";
+    }
+    @GetMapping("/inizio")
+    public String mostraInzio() {
+       
+        return "Inizio";
+    }
+
+    
 //
 
 

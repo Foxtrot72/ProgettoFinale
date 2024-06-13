@@ -7,5 +7,5 @@ import com.example.demo.Model.Utente;
 
 @Repository
 public interface UtenteRepository extends JpaRepository<Utente,Long> {
-
+    Utente findByUsername(String username);
 }
