@@ -60,11 +60,7 @@ public class UtenteController {
         return "redirect:/home"; 
     } 
 
-    @GetMapping("/home")
-    public String mostraFormSign() {
-       
-        return "Home";
-    }
+   
     @GetMapping("/venditore")
     public String mostraVenditore() {
        
@@ -114,7 +110,7 @@ public String autentificaUtente(@ModelAttribute("utente") Utente utente, Model m
         return "redirect:/home";
     } else {
         model.addAttribute("error", "Username o password non corretti");
-        return "login";
+        return "Login";
     }
 }
 }
