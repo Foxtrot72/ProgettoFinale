@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.demo.Model.Prodotto;
 import com.example.demo.Model.Utente;
+import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
 
 @Controller
@@ -18,6 +19,9 @@ public class UtenteController {
 
     @Autowired
     private UtenteRepository utenteRepository;
+
+    @Autowired
+    private ProdottoRepository prodottoRepository;
 
     public Utente findByUsername(String username) {
         return utenteRepository.findByUsername(username);
@@ -65,16 +69,8 @@ public class UtenteController {
         return "Inizio";
     }
 
-    @GetMapping("/prodotticatalogo")
-    public String mostraCatalogo() {
-
-        return "Catalogo";
-    }
-    @GetMapping("/acquirente")
-    public String mostraFromProdotti(Prodotto prodotto, Model model) {
-        model.addAttribute("prodotto", prodotto);
-        return "Acquirente";
-    }
+    
+    
 
     // @PostMapping("/acquirente")
     // public String ricercaProdotto(String nome, Model model) {
@@ -108,8 +104,23 @@ public class UtenteController {
             model.addAttribute("error", "Username o password non corretti");
             return "Login";
         }
-    
-    
+    }
+    @GetMapping("/acquirente")
+    public String mostraFromProdotti(Prodotto prodotto, Model model) {
+        model.addAttribute("prodotto", prodotto);
+        return "Acquirente";
+    }
 
+    @PostMapping("/acquirente")
+    public String ricercaProdotto(@ModelAttribute Prodotto prodotto, Model model) {
+        List<Prodotto> prodotti = prodottoRepository.findByNome(prodotto.getNome());
+        model.addAttribute("prodotti", prodotti);
+        return "Risultati";
+    }
+
+    @GetMapping("/prodotticatalogo")
+    public String mostraCatalogo() {
+
+        return "Catalogo";
     }
 }

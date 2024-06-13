@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vendere</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -19,22 +18,31 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
+        h1, p {
+            text-align: center;
+            color: #333;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
         th, td {
-            padding: 8px;
+            padding: 10px;
             text-align: left;
             border-bottom: 1px solid #ddd;
+            vertical-align: middle;
         }
         th {
             background-color: #f2f2f2;
         }
         .button-group {
-            margin-top: 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* Centrato orizzontalmente */
+            margin-top: 20px;
+        }
+        .button-group form {
+            display: inline;
         }
         .button-group button {
             padding: 10px 20px;
@@ -43,18 +51,33 @@
             font-size: 16px;
             cursor: pointer;
         }
-        .button-group button:hover {
-            opacity: 0.8;
-        }
-        .button-group .btn-add {
-            background-color: #28a745;
+        .btn-add {
+            background-color: #fd954a;
             color: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .button-group .btn-remove {
-            background-color: #dc3545;
+        .btn-remove-row {
+            background-color: #fd954a;
             color: #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-remove-row:hover {
+            background-color: #c82333;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .link-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #fd954a;
+            text-decoration: none;
+        }
+        .link-home:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -63,7 +86,7 @@
         <h1 class="mb-4">Vendi i tuoi prodotti</h1>
         
         <!-- Tabella dei prodotti -->
-        <table class="table">
+        <table>
             <thead>
                 <tr>
                     <th>#</th>
@@ -81,30 +104,23 @@
                     <td th:text="${prodotto.prezzo}"></td>
                     <td th:text="${prodotto.descrizione}"></td>
                     <td>
-                        <form th:action="@{/vendere/rimuovi}" method="post">
-                            <input type="hidden" th:name="idProdotto" th:value="${prodotto.id}" />
-                            <button type="submit" class="btn btn-sm btn-danger">Rimuovi</button>
+                        <form th:action="@{/vendere/rimuovi}" method="post" style="display:inline;">
+                            <input type="hidden" name="idProdotto" th:value="${prodotto.id}" />
+                            <button type="submit" class="btn-remove-row">Rimuovi</button>
                         </form>
                     </td>
                 </tr>
             </tbody>
         </table>
         
-        <!-- Pulsanti per aggiungere e rimuovere prodotti -->
+        <!-- Pulsante per aggiungere prodotto centrato -->
         <div class="button-group">
             <form action="/vendere/aggiungi" method="get">
-                <button type="submit" class="btn btn-sm btn-success">Aggiungi Prodotto</button>
-            </form>
-            <form action="/vendere/rimuovi" method="get">
-                <button type="submit" class="btn btn-sm btn-danger">Rimuovi Prodotto</button>
+                <button type="submit" class="btn-add">Aggiungi Prodotto</button>
             </form>
         </div>
         
-        <a href="/home" class="mt-3 d-block">Torna alla Homepage</a>
+        <a href="/home" class="link-home">Torna alla Homepage</a>
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

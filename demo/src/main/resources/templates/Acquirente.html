@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home Acquirente</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,30 +16,72 @@
         h1 {
             text-align: center;
             color: #333;
-            text-align: center;
             margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
         .form-group {
+            margin-top: 55px;
             margin-bottom: 20px;
         }
 
-        .form-control, .btn {
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
             border-radius: 5px;
+            box-sizing: border-box;
         }
 
-        .btn-primary {
+        .form-row {
+            display: flex;
+            
+        }
+
+        .form-groupdue {
+
+            margin-bottom: 60px;
+            justify-content: left;
+            width: 170px;
+            margin-right: 20px;
+        }
+
+        .btn {
+            display: block;
+            width: 30%;
+            padding: 10px;
             background-color: #fd954a;
+            color: #fff;
             border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            margin: 0 auto;
         }
 
-        .btn-primary:hover {
+        .btn:hover {
             background-color: #e6842b;
         }
 
         .catalog-link {
-            display: block;
-            width: 100%;
+          display: block;
+            width: 30%;
             text-align: center;
             margin-top: 20px;
             color: white;
@@ -50,6 +91,8 @@
             border-radius: 5px;
             box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
             text-decoration: none;
+           margin: 15px auto auto auto;
+          
         }
 
         .catalog-link:hover {
@@ -57,29 +100,29 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Home Acquirente</h1>
         <form action="/acquirente" th:object="${prodotto}" method="post">
             <div class="form-group">
-                <label for="nome">Nome Prodotto</label>
+                <label for="nome"></label>
                 <input type="text" id="nome" th:field="*{nome}" class="form-control" placeholder="Inserisci nome prodotto" required>
             </div>
-            <div class="form-group">
-                <label for="prezzoMin">Prezzo Minimo</label>
-                <input type="number" id="prezzoMin" name="prezzoMin" class="form-control" placeholder="Inserisci prezzo minimo">
+            <div class="form-row">
+                <div class="form-groupdue">
+                    <label for="prezzoMin"></label>
+                    <input type="number" id="prezzoMin" name="prezzoMin" class="form-control" placeholder=" prezzo minimo">
+                </div>
+                <div class="form-groupdue">
+                    <label for="prezzoMax"></label>
+                    <input type="number" id="prezzoMax" name="prezzoMax" class="form-control" placeholder=" prezzo massimo">
+                </div>
             </div>
-            <div class="form-group">
-                <label for="prezzoMax">Prezzo Massimo</label>
-                <input type="number" id="prezzoMax" name="prezzoMax" class="form-control" placeholder="Inserisci prezzo massimo">
-            </div>
-            <button type="submit" class="btn btn-primary btn-block">Cerca</button>
+            <button type="submit" class="btn">Cerca</button>
         </form>
         <a href="/prodotticatalogo" class="catalog-link">Visualizza il catalogo</a>
     </div>
-    <!-- Bootstrap JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>
