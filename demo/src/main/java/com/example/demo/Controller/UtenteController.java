@@ -9,14 +9,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+
 
 import com.example.demo.Model.Prodotto;
 import com.example.demo.Model.Utente;
 import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 
