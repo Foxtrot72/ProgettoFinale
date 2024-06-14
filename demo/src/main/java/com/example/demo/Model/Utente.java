@@ -17,8 +17,9 @@ public class Utente {
     private String username;
     private String password;
     private String email;
+    private String recensione;
 
-    @OneToMany(mappedBy= "utente", cascade= CascadeType.ALL, orphanRemoval=true)
+    @OneToMany(mappedBy = "utente", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Prodotto> prodotti;
 
     public Long getId() {
@@ -55,6 +56,14 @@ public class Utente {
 
     public void setProdotti(List<Prodotto> prodotti) {
         this.prodotti = prodotti;
+    }
+
+    public String getRecensione() {
+        return recensione;
+    }
+
+    public void setRecensione(String recensione) {
+        this.recensione = recensione;
     }
 
 }
