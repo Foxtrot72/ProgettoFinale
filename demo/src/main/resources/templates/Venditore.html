@@ -102,7 +102,7 @@
                     <td th:text="${index.index + 1}"></td>
                     <td th:text="${prodotto.nome}"></td>
                     <td th:text="${prodotto.prezzo}"></td>
-                    <td th:text="${prodotto.descrizione}"></td>
+                    <td th:text="${prodotto.categoria}"></td>
                     <td>
                         <form th:action="@{/vendere/rimuovi}" method="post" style="display:inline;">
                             <input type="hidden" name="idProdotto" th:value="${prodotto.id}" />
