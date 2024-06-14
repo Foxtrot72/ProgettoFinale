@@ -61,10 +61,7 @@ Account Stripe per i pagamenti
 Passi per l'Avvio
 Clonare il repository:
 
-bash
-Copiază codul
-git clone https://github.com/tuo-utente/marketplace-online.git
-cd marketplace-online
+
 Configurare MongoDB:
 
 Assicurarsi che MongoDB sia in esecuzione e configurare application.properties con le corrette informazioni di connessione.
