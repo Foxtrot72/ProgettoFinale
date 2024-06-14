@@ -160,7 +160,6 @@ public class UtenteController {
         return "Venditore";
     }
 
-<<<<<<< HEAD
     @GetMapping("/aggiungi")
     public String mostraFormAggiungiProdotto(Model model) {
         model.addAttribute("prodotto", new Prodotto());
@@ -175,13 +174,11 @@ public class UtenteController {
         return "redirect:/venditore";
     }
 
-=======
->>>>>>> Andra
     @GetMapping("/acquirente")
     public String mostraFromProdotti(Prodotto prodotto, Model model) {
         model.addAttribute("prodotto", prodotto);
         return "Acquirente";
-        return "Acquirente";
+       
     }
 
     @PostMapping("/acquirente")
@@ -212,7 +209,7 @@ public class UtenteController {
     @GetMapping("/prodotticatalogo")
     public String mostraCatalogo(Model model) {
         List<Prodotto> prodotti = prodottoRepository.findAll();
-        List<Prodotto> prodotti = prodottoRepository.findAll();
+    
         model.addAttribute("prodotti", prodotti);
         return "Catalogo";
     }
