@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aggiungi Prodotto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #fd954a;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #c82333;
+        }
+        .link-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #fd954a;
+            text-decoration: none;
+        }
+        .link-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Aggiungi Prodotto</h1>
+        <form action="/aggiungi" method="post" th:object="${prodotto}">
+            <input type="text" name="nome" th:field="*{nome}" placeholder="Nome Prodotto">
+            <input type="text" name="prezzo" th:field="*{prezzo}" placeholder="Prezzo">
+            <input type="text" name="categoria" th:field="*{categoria}" placeholder="Categoria">
+            <button type="submit" class="btn-add">Aggiungi Prodotto</button>
+        </form>
+        <a href="/venditore" class="link-home">Torna alla pagina del Venditore</a>
+    </div>
+</body>
+</html>

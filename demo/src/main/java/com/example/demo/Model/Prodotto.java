@@ -41,7 +41,12 @@ public class Prodotto {
     }public void setPrezzo(double prezzo) {
         this.prezzo = prezzo;
     }
+   
+    public Utente getVenditore() {
+        return utente;
+    }
 
-    
-    
+    public void setVenditore(Utente utente) {
+        this.utente = utente;
+    }
 }

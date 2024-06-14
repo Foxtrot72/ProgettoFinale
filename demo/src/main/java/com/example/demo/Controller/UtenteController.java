@@ -1,6 +1,8 @@
 package com.example.demo.Controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
 import com.example.demo.Service.EmailService;
 import com.example.demo.Service.UtenteService;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @Controller
 public class UtenteController {
@@ -130,12 +134,40 @@ public class UtenteController {
         model.addAttribute("message", "Your password has been reset successfully.");
         return "Login";
     }
-
+    //funzionava
     @GetMapping("/venditore")
     public String mostraVenditore() {
-
         return "Venditore";
     }
+
+    // @GetMapping("/venditore")
+    // public String mostraVenditore(Model model, Principal principal) {
+    //     Utente venditore = utenteRepository.findByUsername(principal.getName());
+    //     List<Prodotto> prodotti = prodottoRepository.findByUtente(venditore);
+    //     model.addAttribute("prodotti", prodotti);
+    //     return "Venditore";
+    // }
+
+    @GetMapping("/aggiungi")
+    public String mostraFormAggiungiProdotto(Model model) {
+        model.addAttribute("prodotto", new Prodotto());
+        return "Aggiungi";
+    }
+
+
+    @PostMapping("/aggiungi")
+    public String aggiungiProdotto(@ModelAttribute("prodotto") Prodotto prodotto, Utente utente) {
+        Utente existingUtente = findByUsername(utente.getUsername());
+        prodotto.setVenditore(existingUtente);
+        prodottoRepository.save(prodotto);
+        return "redirect:/venditore";
+    }
+    
+
+  
+
+   
+
 
   
 
