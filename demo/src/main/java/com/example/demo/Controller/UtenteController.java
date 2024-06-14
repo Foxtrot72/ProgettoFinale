@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,9 @@ import org.slf4j.Logger;
 @Controller
 public class UtenteController {
     private static final Logger logger = LoggerFactory.getLogger(UtenteController.class);
+
+    @Value("${app.url}")
+    private String appUrl;
 
     @Autowired
     private ProdottoRepository prodottoRepository;
@@ -108,8 +112,11 @@ public class UtenteController {
             utenteService.createPasswordResetTokenForUtente(utente, token); // Aggiornato per passare l'oggetto Utente e
                                                                             // il token
             logger.info("Password reset token generated, sending email");
+
+            String resetPasswordUrl = appUrl + "/reset-password?token=" + token;
             emailService.sendSimpleMessage(email, "Richiesta Reset Password",
-                    "Per resettare la tua password, clicca sul link sotto:\n" + token);
+                    "Per resettare la tua password, clicca sul link sotto:\n" + resetPasswordUrl);
+
             logger.info("Email sent successfully");
             model.addAttribute("message", "Un link per resettare la password è stato mandato a " + email);
             return "RecuperoPassword";
