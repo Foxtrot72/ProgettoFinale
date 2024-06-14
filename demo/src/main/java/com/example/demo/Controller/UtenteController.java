@@ -1,8 +1,6 @@
 package com.example.demo.Controller;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,6 @@ import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
 import com.example.demo.Service.EmailService;
 import com.example.demo.Service.UtenteService;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 @Controller
 public class UtenteController {
@@ -40,12 +36,14 @@ public class UtenteController {
     public Utente findByUsername(String username) {
         return utenteRepository.findByUsername(username);
     }
+
     @GetMapping("/utenti")
     public String getAllutenti(Model model) {
         List<Utente> utenti = utenteRepository.findAll();
         model.addAttribute("utenti", utenti);
         return "Utenti";
     }
+
     @GetMapping("/")
     public String paginaIniziale() {
         return "Inizio";
@@ -55,8 +53,6 @@ public class UtenteController {
     public String home() {
         return "Home";
     }
-
-   
 
     @GetMapping("/sign")
     public String mostraFormSign(Utente utente, Model model) {
@@ -134,26 +130,17 @@ public class UtenteController {
         model.addAttribute("message", "Your password has been reset successfully.");
         return "Login";
     }
-    //funzionava
+
     @GetMapping("/venditore")
     public String mostraVenditore() {
         return "Venditore";
     }
-
-    // @GetMapping("/venditore")
-    // public String mostraVenditore(Model model, Principal principal) {
-    //     Utente venditore = utenteRepository.findByUsername(principal.getName());
-    //     List<Prodotto> prodotti = prodottoRepository.findByUtente(venditore);
-    //     model.addAttribute("prodotti", prodotti);
-    //     return "Venditore";
-    // }
 
     @GetMapping("/aggiungi")
     public String mostraFormAggiungiProdotto(Model model) {
         model.addAttribute("prodotto", new Prodotto());
         return "Aggiungi";
     }
-
 
     @PostMapping("/aggiungi")
     public String aggiungiProdotto(@ModelAttribute("prodotto") Prodotto prodotto, Utente utente) {
@@ -162,38 +149,42 @@ public class UtenteController {
         prodottoRepository.save(prodotto);
         return "redirect:/venditore";
     }
-    
-
-  
-
-   
-
-
-  
 
     @GetMapping("/acquirente")
     public String mostraFromProdotti(Prodotto prodotto, Model model) {
         model.addAttribute("prodotto", prodotto);
-     return "Acquirente";
-
+        return "Acquirente";
     }
 
     @PostMapping("/acquirente")
-    public String ricercaProdotto(@ModelAttribute Prodotto prodotto, Model model) {
-        List<Prodotto> prodotti = prodottoRepository.findByNome(prodotto.getNome());
+    public String ricercaProdotto(@ModelAttribute Prodotto prodotto,
+                                  @RequestParam(name = "prezzoMin", required = false) Double prezzoMin,
+                                  @RequestParam(name = "prezzoMax", required = false) Double prezzoMax,
+                                  Model model) {
+        List<Prodotto> prodotti;
+        if (prezzoMin != null && prezzoMax != null) {
+            prodotti = prodottoRepository.findByNomeAndPrezzoBetween(prodotto.getNome(), prezzoMin, prezzoMax);
+        } else if (prezzoMin != null) {
+            prodotti = prodottoRepository.findByNomeAndPrezzoGreaterThanEqual(prodotto.getNome(), prezzoMin);
+        } else if (prezzoMax != null) {
+            prodotti = prodottoRepository.findByNomeAndPrezzoLessThanEqual(prodotto.getNome(), prezzoMax);
+        } else {
+            prodotti = prodottoRepository.findByNome(prodotto.getNome());
+        }
         model.addAttribute("prodotti", prodotti);
         return "Risultati";
     }
+    @PostMapping("/risultati")
+    public String ricercaProdotto(@ModelAttribute Prodotto prodotto, Model model) {
+        List<Prodotto> prodotti = prodottoRepository.findByNomeAndPrezzoBetween(prodotto.getNome(), prodotto.getPrezzo(), prodotto.getPrezzo());
+        model.addAttribute("prodotti", prodotti);
+        return "Risultati"; // Ritorna il nome della vista Risultati.html
+    }
 
-    
     @GetMapping("/prodotticatalogo")
     public String mostraCatalogo(Model model) {
-        List<Prodotto> prodotti= prodottoRepository.findAll();
+        List<Prodotto> prodotti = prodottoRepository.findAll();
         model.addAttribute("prodotti", prodotti);
         return "Catalogo";
     }
-
-
 }
-
-

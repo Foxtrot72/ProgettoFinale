@@ -7,73 +7,110 @@
     <title>Risultati della Ricerca</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f4f4f4;
             margin: 0;
             padding: 20px;
+            color: #333;
         }
 
         h1 {
             text-align: center;
-            color: #333;
+            color: #fd954a; /* colore principale */
+            margin-bottom: 20px;
         }
 
-        .product-list {
-            max-width: 600px;
+        .container {
+            max-width: 800px;
             margin: 0 auto;
-        }
-
-        .product-item {
-            background: #fff;
             padding: 20px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
 
-        .product-item h2 {
+        .prodotto {
+            border-bottom: 1px solid #ddd;
+            padding: 15px 0;
+            display: flex;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .prodotto:last-child {
+            border-bottom: none;
+        }
+
+        .prodotto h2 {
+            margin: 0;
             color: #333;
-            margin-bottom: 5px;
+            font-size: 20px;
         }
 
-        .product-item p {
+        .prodotto p {
             margin: 5px 0;
+            color: #666;
+            font-size: 16px;
         }
 
-        .back-link {
-            display: block;
-            width: 200px;
-            margin: 20px auto;
-            padding: 10px 0;
-            text-align: center;
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .table th,
+        .table td {
+            padding: 15px 20px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .table th {
             background-color: #fd954a;
             color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-            transition: background-color 0.3s, box-shadow 0.3s;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
         }
 
-        .back-link:hover {
-            background-color: #e8853c;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+        .table tbody tr:hover {
+            background-color: #f2f2f2;
+        }
+
+        .prezzo {
+            color: #fd954a;
+            font-size: 18px;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-    <h1>Risultati della Ricerca</h1>
-
-    <div class="product-list">
-        <!-- Loop attraverso i prodotti trovati -->
-        <div th:each="prodotto : ${prodotti}" class="product-item">
-            <h2 th:text="${prodotto.nome}"></h2>
-            <p th:text="'Prezzo: ' + ${prodotto.prezzo} + ' €'"></p>
-            <p th:text="${prodotto.descrizione}"></p>
-        </div>
+    <div class="container">
+        <h1>Risultati della ricerca</h1>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nome Prodotto</th>
+                    <th>Prezzo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="prodotto : ${prodotti}" class="prodotto">
+                    <td>
+                        <h2 th:text="${prodotto.nome}"></h2>
+                        <p></p>
+                    </td>
+                    <td>
+                        <span class="prezzo" th:text="${prodotto.prezzo}"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-
-    <a href="/acquirente" class="back-link">Nuova Ricerca</a>
 </body>
 
 </html>

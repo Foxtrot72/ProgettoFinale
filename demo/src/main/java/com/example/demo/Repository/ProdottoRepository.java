@@ -10,6 +10,8 @@ import com.example.demo.Model.Utente;
 
 @Repository
 public interface ProdottoRepository extends JpaRepository<Prodotto, Long> {
-    List<Prodotto> findByUtente(Utente utente);
-    List<Prodotto> findByNome(String nome); // Assicurati che il nome sia 'Nome' e non 'Name'
+    List<Prodotto> findByNome(String nome);
+    List<Prodotto> findByNomeAndPrezzoBetween(String nome, Double prezzoMin, Double prezzoMax);
+    List<Prodotto> findByNomeAndPrezzoGreaterThanEqual(String nome, Double prezzoMin);
+    List<Prodotto> findByNomeAndPrezzoLessThanEqual(String nome, Double prezzoMax);
 }
