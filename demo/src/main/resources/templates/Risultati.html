@@ -69,11 +69,12 @@
         <div th:each="prodotto : ${prodotti}" class="product-item">
             <h2 th:text="${prodotto.nome}"></h2>
             <p th:text="'Prezzo: ' + ${prodotto.prezzo} + ' €'"></p>
-            <p th:text="${prodotto.descrizione}"></p>
+            <p th:text="${prodotto.categoria}"></p>
         </div>
     </div>
 
     <a href="/acquirente" class="back-link">Nuova Ricerca</a>
+    <a href="/prodotticatalogo" class="catalog-link">Visualizza il catalogo</a>
 </body>
 
 </html>

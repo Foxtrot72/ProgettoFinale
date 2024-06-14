@@ -74,11 +74,15 @@
         <tr>
             <th>Id</th>
             <th>Nome</th>
+            <th>Prezzo</th>
+            <th>Categoria</th>
         </tr>
         <th:block th:each="prodotto : ${prodotti}">
             <tr>
                 <td th:text="${prodotto.id}"></td>
                 <td th:text="${prodotto.nome}"></td>
+                <td th:text="${prodotto.prezzo}"></td>
+                <td th:text="${prodotto.categoria}"></td>
             </tr>
         </th:block>
     </table>

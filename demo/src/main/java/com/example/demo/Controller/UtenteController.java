@@ -1,8 +1,6 @@
 package com.example.demo.Controller;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +17,6 @@ import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
 import com.example.demo.Service.EmailService;
 import com.example.demo.Service.UtenteService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -54,9 +51,7 @@ public class UtenteController {
     @GetMapping("/home")
     public String home() {
         return "Home";
-    }
-
-   
+    }  
 
     @GetMapping("/sign")
     public String mostraFormSign(Utente utente, Model model) {
@@ -164,13 +159,6 @@ public class UtenteController {
     }
     
 
-  
-
-   
-
-
-  
-
     @GetMapping("/acquirente")
     public String mostraFromProdotti(Prodotto prodotto, Model model) {
         model.addAttribute("prodotto", prodotto);
@@ -179,8 +167,8 @@ public class UtenteController {
     }
 
     @PostMapping("/acquirente")
-    public String ricercaProdotto(@ModelAttribute Prodotto prodotto, Model model) {
-        List<Prodotto> prodotti = prodottoRepository.findByNome(prodotto.getNome());
+    public String ricercaProdotto(@RequestParam("nome") String nome, @ModelAttribute Model model) {     
+        List<Prodotto> prodotti = prodottoRepository.findByNome(nome);
         model.addAttribute("prodotti", prodotti);
         return "Risultati";
     }
@@ -192,6 +180,7 @@ public class UtenteController {
         model.addAttribute("prodotti", prodotti);
         return "Catalogo";
     }
+
 
 
 }
