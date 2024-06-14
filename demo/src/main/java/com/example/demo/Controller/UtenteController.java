@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,20 +9,28 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.Model.Prodotto;
 import com.example.demo.Model.Utente;
-import com.example.demo.Repository.ProdottoRepository;
 import com.example.demo.Repository.UtenteRepository;
+import com.example.demo.Service.EmailService;
+import com.example.demo.Service.UtenteService;
 
 @Controller
 public class UtenteController {
+    
+    @Autowired
+    private ProdottoRepository prodottoRepository;
 
     @Autowired
     private UtenteRepository utenteRepository;
 
     @Autowired
-    private ProdottoRepository prodottoRepository;
+    private UtenteService utenteService;
+
+    @Autowired
+    private EmailService emailService;
 
     public Utente findByUsername(String username) {
         return utenteRepository.findByUsername(username);
@@ -34,7 +43,7 @@ public class UtenteController {
 
     @GetMapping("/home")
     public String home() {
-        return "home";
+        return "Home";
     }
 
     @GetMapping("/utenti")
@@ -53,41 +62,8 @@ public class UtenteController {
     @PostMapping("/sign")
     public String aggiungiUtente(Utente utente) {
         utenteRepository.save(utente);
-        // model.addAttribute("utente", utente);
         return "redirect:/home";
     }
-
-    @GetMapping("/venditore")
-    public String mostraVenditore() {
-
-        return "venditore";
-    }
-
-    @GetMapping("/inizio")
-    public String mostraInzio() {
-
-        return "Inizio";
-    }
-
-    
-    
-
-    // @PostMapping("/acquirente")
-    // public String ricercaProdotto(String nome, Model model) {
-    // List<Prodotto> prodotti = prodottoRepository.findByNome(nome);
-    // model.addAttribute("prodotti", prodotti);
-    // return "redirect:/";
-    // }
-
-    //
-
-    // @PostMapping("/sign")
-    // public ModelAndView aggiungiUtente(Utente utente) {
-    // utenteRepository.save(utente);
-    // ModelAndView mav = new ModelAndView("redirect:/utenti");
-    // mav.addObject("messaggio", "Utente aggiunto con successo");
-    // return mav;
-    // }
 
     @GetMapping("/login")
     public String mostraFormLogin(Model model) {
@@ -96,7 +72,7 @@ public class UtenteController {
     }
 
     @PostMapping("/login")
-    public String autentificaUtente(@ModelAttribute("utente") Utente utente, Model model) {
+    public String login(@ModelAttribute("utente") Utente utente, Model model) {
         Utente existingUtente = findByUsername(utente.getUsername());
         if (existingUtente != null && existingUtente.getPassword().equals(utente.getPassword())) {
             return "redirect:/home";
@@ -105,22 +81,52 @@ public class UtenteController {
             return "Login";
         }
     }
-    @GetMapping("/acquirente")
-    public String mostraFromProdotti(Prodotto prodotto, Model model) {
-        model.addAttribute("prodotto", prodotto);
-        return "Acquirente";
+
+    @GetMapping("/recupero-password")
+    public String mostraFormRecuperoPassword(Model model) {
+        model.addAttribute("email", new String());
+        return "RecuperoPassword";
     }
 
-    @PostMapping("/acquirente")
-    public String ricercaProdotto(@ModelAttribute Prodotto prodotto, Model model) {
-        List<Prodotto> prodotti = prodottoRepository.findByNome(prodotto.getNome());
-        model.addAttribute("prodotti", prodotti);
-        return "Risultati";
+    @PostMapping("/recupero-password")
+    public String recuperaPassword(@RequestParam("email") String email, Model model) {
+        Utente utente = utenteService.findUtenteByEmail(email);
+        if (utente == null) {
+            model.addAttribute("error", "No user found with this email address.");
+            return "RecuperoPassword";
+        }
+        String token = UUID.randomUUID().toString();
+        utenteService.createPasswordResetTokenForUtente(utente, token);
+        String resetUrl = "http://localhost:8080/reset-password?token=" + token;
+        emailService.sendSimpleMessage(email, "Password Reset Request",
+                "To reset your password, click the link below:\n" + resetUrl);
+        model.addAttribute("message", "A password reset link has been sent to " + email);
+        return "RecuperoPassword";
     }
 
-    @GetMapping("/prodotticatalogo")
-    public String mostraCatalogo() {
+    @GetMapping("/reset-password")
+    public String mostraFormResetPassword(@RequestParam("token") String token, Model model) {
+        String result = utenteService.validatePasswordResetToken(token);
+        if (result != null) {
+            model.addAttribute("error", "Invalid token.");
+            return "RecuperoPassword";
+        }
+        model.addAttribute("token", token);
+        return "ResetPassword";
+    }
 
-        return "Catalogo";
+    @PostMapping("/reset-password")
+    public String resetPassword(@RequestParam("token") String token,
+            @RequestParam("password") String password,
+            Model model) {
+        String result = utenteService.validatePasswordResetToken(token);
+        if (result != null) {
+            model.addAttribute("error", "Invalid token.");
+            return "ResetPassword";
+        }
+        Utente utente = utenteService.getUtenteByPasswordResetToken(token);
+        utenteService.changeUtentePassword(utente, password);
+        model.addAttribute("message", "Your password has been reset successfully.");
+        return "Login";
     }
 }
