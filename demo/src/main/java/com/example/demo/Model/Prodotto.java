@@ -14,6 +14,8 @@ public class Prodotto {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     private String nome;
+    private double prezzo;
+    private String categoria;
 
     @ManyToOne
     @JoinColumn(name = "utente_id")
@@ -29,6 +31,15 @@ public class Prodotto {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public String getCategoria() {
+        return categoria;
+    }public double getPrezzo() {
+        return prezzo;
+    }public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }public void setPrezzo(double prezzo) {
+        this.prezzo = prezzo;
     }
 
     

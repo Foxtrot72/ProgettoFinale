@@ -70,21 +70,16 @@
 </head>
 
 <body>
-    <h1>Lista utenti</h1>
     <table>
         <tr>
-            <th>nome utente</th>
-            <th>password</th>
-            <th>email</th>
+            <th>Id</th>
+            <th>Nome</th>
         </tr>
-        <th:block th:each="utente : ${utenti}">
+        <th:block th:each="prodotto : ${prodotti}">
             <tr>
-                <td th:text="${utente.username}"></td>
-                <td th:text="${utente.password}"></td>
-                <td th:text="${utente.email}"></td>
+                <td th:text="${prodotto.id}"></td>
+                <td th:text="${prodotto.nome}"></td>
             </tr>
         </th:block>
     </table>
 </body>
-
-</html>

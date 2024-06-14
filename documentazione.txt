@@ -71,13 +71,8 @@ Configurare Stripe:
 Ottenere le chiavi API da Stripe e aggiungerle a application.properties.
 Costruire ed eseguire l'applicazione:
 
-bash
-Copiază codul
-mvn clean install
-mvn spring-boot:run
-File di Configurazione Principali
-application.properties: contiene le configurazioni dell'applicazione come connessioni a database e chiavi API.
-SecurityConfig.java: configura le impostazioni di sicurezza con Spring Security.
+
+
 Conclusione
 Questo documento descrive le principali funzionalità, tecnologie e configurazioni del progetto Marketplace Online. Per ulteriori dettagli, consultare la documentazione dei singoli componenti e le guide di Spring.
 
@@ -115,7 +110,6 @@ L'impiego di Field è buona pratica per la manutenibilità del codice e la consi
 
 
 Fonte:https://docs.spring.io/spring-data/mongodb/reference/#mapping-usage-annotations-document
-
 
 Stripe API:
 - Aggiungere le dipendenze di Stripe

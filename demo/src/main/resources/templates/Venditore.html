@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vendere</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1, p {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+            vertical-align: middle;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center; /* Centrato orizzontalmente */
+            margin-top: 20px;
+        }
+        .button-group form {
+            display: inline;
+        }
+        .button-group button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .btn-add {
+            background-color: #fd954a;
+            color: #fff;
+        }
+        .btn-remove-row {
+            background-color: #fd954a;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-remove-row:hover {
+            background-color: #c82333;
+        }
+        .btn:hover {
+            opacity: 0.9;
+        }
+        .link-home {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            color: #fd954a;
+            text-decoration: none;
+        }
+        .link-home:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Vendi i tuoi prodotti</h1>
+        
+        <!-- Tabella dei prodotti -->
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome Prodotto</th>
+                    <th>Prezzo</th>
+                    <th>Descrizione</th>
+                    <th>Azioni</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Esempio di riga della tabella -->
+                <tr th:each="prodotto, index : ${prodotti}">
+                    <td th:text="${index.index + 1}"></td>
+                    <td th:text="${prodotto.nome}"></td>
+                    <td th:text="${prodotto.prezzo}"></td>
+                    <td th:text="${prodotto.categoria}"></td>
+                    <td>
+                        <form th:action="@{/vendere/rimuovi}" method="post" style="display:inline;">
+                            <input type="hidden" name="idProdotto" th:value="${prodotto.id}" />
+                            <button type="submit" class="btn-remove-row">Rimuovi</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!-- Pulsante per aggiungere prodotto centrato -->
+        <div class="button-group">
+            <form action="/vendere/aggiungi" method="get">
+                <button type="submit" class="btn-add">Aggiungi Prodotto</button>
+            </form>
+        </div>
+        
+        <a href="/home" class="link-home">Torna alla Homepage</a>
+    </div>
+</body>
+</html>

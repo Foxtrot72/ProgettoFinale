@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Acquirente</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-top: 55px;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-row {
+            display: flex;
+            
+        }
+
+        .form-groupdue {
+
+            margin-bottom: 60px;
+            justify-content: left;
+            width: 170px;
+            margin-right: 20px;
+        }
+
+        .btn {
+            display: block;
+            width: 30%;
+            padding: 10px;
+            background-color: #fd954a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: center;
+            margin: 0 auto;
+        }
+
+        .btn:hover {
+            background-color: #e6842b;
+        }
+
+        .catalog-link {
+          display: block;
+            width: 30%;
+            text-align: center;
+            margin-top: 20px;
+            color: white;
+            background-color: #fd954a;
+            border: none;
+            padding: 10px 0;
+            border-radius: 5px;
+            box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+            text-decoration: none;
+           margin: 15px auto auto auto;
+          
+        }
+
+        .catalog-link:hover {
+            background-color: #e6842b;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Home Acquirente</h1>
+        <form action="/acquirente" th:object="${prodotto}" method="post">
+            <div class="form-group">
+                <label for="nome"></label>
+                <input type="text" id="nome" th:field="*{nome}" class="form-control" placeholder="Inserisci nome prodotto" required>
+            </div>
+            <div class="form-row">
+                <div class="form-groupdue">
+                    <label for="prezzoMin"></label>
+                    <input type="number" id="prezzoMin" name="prezzoMin" class="form-control" placeholder=" prezzo minimo">
+                </div>
+                <div class="form-groupdue">
+                    <label for="prezzoMax"></label>
+                    <input type="number" id="prezzoMax" name="prezzoMax" class="form-control" placeholder=" prezzo massimo">
+                </div>
+            </div>
+            <button type="submit" class="btn">Cerca</button>
+        </form>
+        <a href="/prodotticatalogo" class="catalog-link">Visualizza il catalogo</a>
+    </div>
+</body>
+
+</html>
